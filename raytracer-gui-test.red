@@ -1035,7 +1035,7 @@ win/pane: reduce [
 	]
 
 	make face! [
-		type: 'area text: "redsphere sphere radius 10 position 0.0 0.0 -1.0 lambert 1.0 0.2 0.2 0.0" offset: 150x302 size: 500x100 color: 200.200.200
+		type: 'area text: "redsphere sphere radius 0.5 position 0.0 0.0 -1.0 lambert 1.0 0.2 0.2 0.0" offset: 150x302 size: 500x100 color: 200.200.200
 		font: font-Consolas
 		flags: [no-border]
 		actors: object [
