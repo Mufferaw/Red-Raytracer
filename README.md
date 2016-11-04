@@ -4,6 +4,8 @@ This is a very basic ray tracer written as an exercise to learn about Red.
 The main part of the ray tracer is written in Red/System, the interface and 
 scene parsing are written in Red.
 
+![picture alt](https://github.com/Mufferaw/Red-Raytracer/blob/master/screenshot.jpg)
+
 ###Usage:###
 
 The camera's position and target can be set by changing the values in their respective fields.
