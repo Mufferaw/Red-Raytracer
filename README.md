@@ -1,1 +1,2 @@
-"Red-Raytracer" 
+Red-Raytracer
+
