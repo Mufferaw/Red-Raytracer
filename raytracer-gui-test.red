@@ -822,7 +822,7 @@ tarz: -1.0
 samples: 10
 depth: 40
 fov: 90
-scene-block:[]
+scene-block: "redsphere sphere radius 0.5 position 0.0 0.0 -1.0 lambert 1.0 0.2 0.2 0.0"
 
 font-Consolas: make font! [
 	name: "Consolas"
@@ -1017,7 +1017,7 @@ win/pane: reduce [
 	]
 
 	Display: make face! [										;--image area
-		type: 'panel offset: 150x28 size: 500x250
+		type: 'base offset: 150x28 size: 500x250
 		image: make image! 500x250
 	]
 
