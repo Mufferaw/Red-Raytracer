@@ -21,11 +21,11 @@ Lambert (Matte).
 
 The syntax for describing the scene is very simple:
 
-`NameofSphere radius 0.5 position 0.0 0.0 -1.0 metal 0.6 0.2 0.2 0.2`
+`NameofSphere sphere radius 0.5 position 0.0 0.0 -1.0 metal 0.6 0.2 0.2 0.2`
 
-`AnotherSphere radius 0.5 position 1.0 0.0 -1.0 lambert 0.2 0.2 0.4 0.0`
+`AnotherSphere sphere radius 0.5 position 1.0 0.0 -1.0 lambert 0.2 0.2 0.4 0.0`
 
-`BigSphere radius 100.0 position 0.0 -100.5 -1.0 lambert 0.7 0.7 0.7 0.0`
+`BigSphere sphere radius 100.0 position 0.0 -100.5 -1.0 lambert 0.7 0.7 0.7 0.0`
 
 The last argument for the Metal material is the amount of blur in the reflections, the Lambert material
 does not use the last argument (but it is still needed)
