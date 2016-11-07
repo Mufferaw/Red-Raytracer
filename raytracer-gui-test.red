@@ -5,9 +5,11 @@ Red [
 
 
 #system-global [
-	#include %/E/Dev/red/red/runtime/random.reds
-	_random/init
-	_random/srand 123  
+	;#include %/E/Dev/red/red/runtime/random.reds
+	;_random/init
+	;_random/srand 123  
+	;random/seed 123
+
 
 	vector3!: alias struct! [
 	    x [float!]
@@ -51,6 +53,8 @@ Trace: routine[
 				get-ray color hit-list-hit scatter hit-sphere ray-pap
 
 		][
+		_random/init
+		_random/srand 123
 
 		vector3!: alias struct! [
 		    x [float!]
