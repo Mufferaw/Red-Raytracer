@@ -16,15 +16,15 @@ Red [
 	]	
 
 	material!: alias struct! [
-   		type [integer!]
-   		param1 [vector3!]
-   		param2 [float!]
+   		type 	[integer!]
+   		param1 	[vector3!]
+   		param2 	[float!]
 	]
 		
 	sphere!: alias struct! [
-		center [vector3!]
-		radius [float!]
-		material [material!]
+		center 	[vector3!]
+		radius 	[float!]
+		material[material!]
 	]
 
 	Max-Reflection-Depth: 1
@@ -365,7 +365,7 @@ Trace: routine[
 					scattered-origin/x: rec-p/x scattered-origin/y: rec-p/y scattered-origin/z: rec-p/z 
 					attenuation/x: mat/param1/x 
 					attenuation/y: mat/param1/y 
-					attenuation/Z: mat/param1/z
+					attenuation/z: mat/param1/z
 					f: vec3-dot scattered-dir rec-n
 					free as byte-ptr! target
 					free as byte-ptr! v1
@@ -790,38 +790,53 @@ parse-scene: function[
 
 Setup-Camera: function[
 	img 	[image!] 
-	Samples [integer!] 
-	Depth 	[integer!]
-	FOV 	[integer!]
-	px 		[float!] 
-	py 		[float!] 
-	pz 		[float!] 
-	tx 		[float!] 
-	ty 		[float!]
-	tz 		[float!]
+	Samples [string!] 
+	Depth 	[string!]
+	FOV 	[string!]
+	px 		[string!] 
+	py 		[string!] 
+	pz 		[string!] 
+	tx 		[string!] 
+	ty 		[string!]
+	tz 		[string!]
 	][
+		f_px: to float! px
+		f_py: to float! py
+		f_pz: to float! pz
+		f_tx: to float! tx
+		f_ty: to float! ty
+		f_tz: to float! tz
+		i_samples: to integer! Samples
+		i_depth: to integer! Depth
+		i_fov: to integer! FOV
+
 		img/rgb: red
 		half-height: 0.0
 		half-width: 0.0
 		x-res: 500
 		y-res: 250
 		aspect: (to float! x-res) / (to float! y-res)
-		theta: to float! fov * pi / 180.0
+		theta: to float! i_fov * pi / 180.0
 		half-height: tan theta / 2.0
 		half-width: aspect * half-height
-		render half-height half-width x-res y-res samples depth px py pz tx ty tz img
+		render half-height half-width x-res y-res i_samples i_depth f_px f_py f_pz f_tx f_ty f_tz img
 ]
 
+save-as-png: function[][
+	filename: request-file/save/filter["*.png"]
+	save filename display/image /as[png]
+	
+]
 
-posx: 0.0
-posy: 0.0
-posz: 0.0
-tarx: 0.0
-tary: 0.0
-tarz: -1.0
-samples: 10
-depth: 40
-fov: 90
+posx: 		"0.0"
+posy: 		"0.0"
+posz: 		"0.0"
+tarx: 		"0.0"
+tary: 		"0.0"
+tarz: 		"-1.0"
+samples: 	"10"
+depth: 		"40"
+fov: 		"90"
 scene-block: "redsphere sphere radius 0.5 position 0.0 0.0 -1.0 lambert 1.0 0.2 0.2 0.0"
 
 font-Consolas: make font! [
@@ -1000,14 +1015,25 @@ win: make face! [
 	type: 'window text: "Ray Tracer" size: 676x450 color: pewter
 	menu: [
 		"File" [
-			"Save..."			save
-			"Save as..."		save-as
+			"Save Image..."		save-as
 			---
 			"Exit"				exit
 		]
 	]
-		
+	actors: object [
+		on-menu: func [face [object!] event [event!]][
+			switch event/picked [
+				save-as [
+					save-as-png
+				]
+				exit [
+					unview/all
+				]
+			]
+		]
+	]
 ]
+		
 
 win/pane: reduce [
 
@@ -1053,7 +1079,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				posx: to float! face/text
+				posx: face/text
 			]
 		]
 	]
@@ -1066,7 +1092,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				posy: to float! face/text
+				posy: face/text
 			]
 		]
 	]
@@ -1079,7 +1105,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				posz: to float! face/text
+				posz: face/text
 			]
 		]
 	]
@@ -1092,7 +1118,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				tarx: to float! face/text
+				tarx: face/text
 			]
 		]
 	]
@@ -1105,7 +1131,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				tary: to float! face/text
+				tary: face/text
 			]
 		]
 	]
@@ -1118,7 +1144,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				tarz: to float! face/text
+				tarz: face/text
 			]
 		]
 	]
@@ -1131,7 +1157,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				samples: to integer! face/text
+				samples: face/text
 			]
 		]
 	]
@@ -1144,7 +1170,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				depth: to integer! face/text
+				depth: face/text
 			]
 		]
 	]
@@ -1157,7 +1183,7 @@ win/pane: reduce [
 		flags: [no-border]
 		actors: object [
 			on-change: func [face [object!] event [event!]][
-				fov: to integer! face/text
+				fov: face/text
 			]
 		]
 	]
@@ -1165,6 +1191,6 @@ win/pane: reduce [
 
 ]
 
-view/flags win [resize]
-;view win
+;view/flags win [resize]
+view win
 
